@@ -4,6 +4,8 @@ import com.user.userservice.dto.UserDto;
 import com.user.userservice.entity.User;
 import com.user.userservice.exception.UserNotFoundException;
 import com.user.userservice.service.UserService;
+import lombok.extern.slf4j.Slf4j;
+import lombok.extern.slf4j.XSlf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,12 +15,14 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/users")
+@Slf4j
 public class UserController {
     @Autowired
     UserService userService;
 
     @PostMapping("/saveUser")
     public ResponseEntity<String> saveUser(@RequestBody User user) {
+        log.info("UserServiceController::saveUser request{}",user.getId());
         userService.saveuser(user);
         return new ResponseEntity<String>(HttpStatus.CREATED);
     }
